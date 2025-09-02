@@ -1,22 +1,28 @@
+import "../instrument.mjs";
 import express from "express";
 import { ENV } from "./config/env.js";
 import { connectDB } from "./config/db.js";
 import { clerkMiddleware } from "@clerk/express";
 import { functions, inngest } from "./config/inngest.js";
 import { serve } from "inngest/express";
+import chatRoutes from "./routes/chatRoutes.js";
+import * as Sentry from "@sentry/node";
 
 const app = express();
 
 app.use(express.json()); // access req.body
 app.use(clerkMiddleware()); // access req.auth
 
-app.use("/api/inngest", serve({ client: inngest, functions }));
-
-const PORT = process.env.PORT || 5001;
-
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
+
+app.use("/api/inngest", serve({ client: inngest, functions }));
+app.use("/api/chat", chatRoutes);
+
+Sentry.setupExpressErrorHandler(app);
+
+const PORT = process.env.PORT || 5001;
 
 const startServer = async () => {
   try {
