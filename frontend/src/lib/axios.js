@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL =
   import.meta.env.MODE === "development"
-    ? "http://localhost:5001"
+    ? "http://localhost:5001/api"
     : "https://mern-slack-backend-xi.vercel.app/";
 
 export const axiosInstance = axios.create({
