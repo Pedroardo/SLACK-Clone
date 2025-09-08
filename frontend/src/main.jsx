@@ -18,7 +18,7 @@ import { Toaster } from "react-hot-toast";
 import AuthProvider from "./providers/AuthProvider.jsx";
 
 Sentry.init({
-  dsn: import.meta.env.SENTRY_DSN,
+  dsn: import.meta.env.VITE_SENTRY_DSN,
   integrations: [
     Sentry.reactRouterV7BrowserTracingIntegration({
       useEffect: React.useEffect,
