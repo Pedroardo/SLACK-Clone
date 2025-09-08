@@ -12,7 +12,7 @@ import cors from "cors";
 const app = express();
 
 app.use(express.json()); // access req.body
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(clerkMiddleware()); // access req.auth
 
 app.get("/", (req, res) => {

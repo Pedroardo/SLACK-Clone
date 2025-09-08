@@ -37,7 +37,12 @@ const CreateChannelModal = ({ onClose }) => {
           { name: 1 },
           { limit: 100 }
         );
-        setUsers(res.users || []);
+
+        const userOnly = res.users.filter(
+          (user) => !user.id.startsWith("recording-")
+        );
+
+        setUsers(userOnly || []);
       } catch (error) {
         console.log("ERror fetching users");
         setUsers([]);
